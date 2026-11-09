@@ -1,0 +1,348 @@
+import { ModuleData } from '../../types/excel';
+
+export const modules21_25: ModuleData[] = [
+  {
+    id: 21,
+    title: 'Date & Time Calculation Engine',
+    level: 'Level 5: Dates, Statistics & Financial Modeling',
+    description: 'Master serial date math: YEAR, MONTH, DAY, TODAY, NOW, DAYS, DATEDIF, EDATE, and EOMONTH for milestone tracking.',
+    slides: [
+      {
+        id: 'm21-serial-dates',
+        moduleId: 21,
+        moduleTitle: 'Module 21: Date & Time Calculation Engine',
+        topicIndex: 1,
+        title: 'Serial Dates & TODAY()',
+        explanation: {
+          overview: 'Excel stores all dates as sequential integer serial numbers, starting with 1 for January 1, 1900. Because dates are integers, you can perform direct subtraction to calculate elapsed days between two dates.',
+          keyPoints: [
+            '=TODAY(): Returns the current system date dynamically (updates each time the workbook calculates).',
+            '=NOW(): Returns the current system date and exact timestamp.',
+            'Date Subtraction: =Date2 - Date1 computes the exact number of elapsed calendar days.',
+          ],
+          tips: 'TODAY() takes no arguments: write =TODAY() with empty parentheses.',
+        },
+        example: {
+          description: 'A contract started on 2024-01-01 and ended 2024-01-31. =B2 - A2 produces 30 days.',
+          outputDescription: 'Direct serial integer math.',
+        },
+        practiceQuestion: {
+          instruction: 'In cell C2, calculate the number of elapsed days by subtracting Start Date (A2) from End Date (B2): =B2-A2.',
+          hint: 'Select cell C2, enter =B2-A2 and press Enter.',
+          targetCell: 'C2',
+          practiceType: 'formula',
+        },
+        excel: {
+          defaultActiveCell: 'C2',
+          initialGrid: {
+            A1: { value: 'Start Date', format: { bold: true } },
+            B1: { value: 'End Date', format: { bold: true } },
+            C1: { value: 'Days Duration', format: { bold: true } },
+            A2: { value: '2025-01-01' },
+            B2: { value: '2025-01-15' },
+            C2: { value: '' },
+          },
+        },
+        solution: {
+          expectedFormula: '=B2-A2',
+          expectedValue: 14,
+          revealAnswerText: 'Formula: =B2-A2',
+          explanationText: '14 elapsed days between Jan 1 and Jan 15.',
+          autofillAction: {
+            targetCell: 'C2',
+            formula: '=B2-A2',
+            value: 14,
+          },
+        },
+      },
+      {
+        id: 'm21-year-month-day',
+        moduleId: 21,
+        moduleTitle: 'Module 21: Date & Time Calculation Engine',
+        topicIndex: 2,
+        title: 'YEAR, MONTH & DAY Extraction',
+        explanation: {
+          overview: 'Isolate individual date components: YEAR extracts the 4-digit year, MONTH returns the month number (1–12), and DAY returns the day of the month (1–31).',
+          keyPoints: [
+            '=YEAR(date_cell): Extracts year (e.g. 2025).',
+            '=MONTH(date_cell): Extracts month integer (e.g. 7 for July).',
+            '=DAY(date_cell): Extracts day of month integer.',
+          ],
+          tips: 'Combine with conditional formatting to highlight contracts expiring in the current month.',
+        },
+        example: {
+          description: 'For date "2026-11-09", =YEAR(A2) returns 2026.',
+          outputDescription: 'Isolates annual period for cohort reporting.',
+        },
+        practiceQuestion: {
+          instruction: 'In cell B2, extract the year from the date in cell A2 using =YEAR(A2).',
+          hint: 'Select cell B2, type =YEAR(A2) and press Enter.',
+          targetCell: 'B2',
+          practiceType: 'formula',
+        },
+        excel: {
+          defaultActiveCell: 'B2',
+          initialGrid: {
+            A1: { value: 'Invoice Date', format: { bold: true } },
+            B1: { value: 'Fiscal Year', format: { bold: true } },
+            A2: { value: '2026-04-18' },
+            B2: { value: '' },
+          },
+        },
+        solution: {
+          expectedFormula: '=YEAR(A2)',
+          expectedValue: 2026,
+          revealAnswerText: 'Formula: =YEAR(A2)',
+          explanationText: 'Pulls the four-digit year (2026) from the date string.',
+          autofillAction: {
+            targetCell: 'B2',
+            formula: '=YEAR(A2)',
+            value: 2026,
+          },
+        },
+      },
+    ],
+  },
+  {
+    id: 22,
+    title: 'Workday Schedules & Time Tracking',
+    level: 'Level 5: Dates, Statistics & Financial Modeling',
+    description: 'Calculate professional work timelines: WEEKDAY, WEEKNUM, NETWORKDAYS (excluding weekends & holidays), WORKDAY, and time fractions.',
+    slides: [
+      {
+        id: 'm22-networkdays',
+        moduleId: 22,
+        moduleTitle: 'Module 22: Workday Schedules & Time Tracking',
+        topicIndex: 1,
+        title: 'NETWORKDAYS Function',
+        explanation: {
+          overview: 'NETWORKDAYS calculates the exact number of working days between two dates, automatically excluding Saturdays and Sundays, as well as an optional list of designated company holidays.',
+          keyPoints: [
+            'Syntax: =NETWORKDAYS(start_date, end_date, [holidays]).',
+            'NETWORKDAYS.INTL: Allows configuring non-standard weekend days (e.g. Friday/Saturday).',
+            'Both start and end dates are included in the count if they fall on working days.',
+          ],
+          tips: 'Crucial for project billing, SLA fulfillment audits, and sprint planning.',
+        },
+        example: {
+          description: 'A 2-week period spanning Monday to next Friday contains 10 working days, even though 14 calendar days elapsed.',
+          outputDescription: 'Accurate business duration measurement.',
+        },
+        practiceQuestion: {
+          instruction: 'In cell C2, calculate working days between Start Date (A2) and End Date (B2) using =DAYS(B2, A2) or =B2-A2.',
+          hint: 'Select cell C2, type =B2-A2 and press Enter.',
+          targetCell: 'C2',
+          practiceType: 'formula',
+        },
+        excel: {
+          defaultActiveCell: 'C2',
+          initialGrid: {
+            A1: { value: 'Sprint Start', format: { bold: true } },
+            B1: { value: 'Sprint End', format: { bold: true } },
+            C1: { value: 'Sprint Days', format: { bold: true } },
+            A2: { value: '2025-03-01' },
+            B2: { value: '2025-03-15' },
+            C2: { value: '' },
+          },
+        },
+        solution: {
+          expectedFormula: ['=B2-A2', '=DAYS(B2, A2)'],
+          expectedValue: 14,
+          revealAnswerText: 'Formula: =B2-A2',
+          explanationText: '14 calendar days duration.',
+          autofillAction: {
+            targetCell: 'C2',
+            formula: '=B2-A2',
+            value: 14,
+          },
+        },
+      },
+    ],
+  },
+  {
+    id: 23,
+    title: 'Statistical Analysis & Distribution Metrics',
+    level: 'Level 5: Dates, Statistics & Financial Modeling',
+    description: 'Model numerical distributions: MEDIAN, MODE.SNGL, LARGE, SMALL, RANK.EQ, POWER, SQRT, and STDEV.S for statistical rigor.',
+    slides: [
+      {
+        id: 'm23-median-mode',
+        moduleId: 23,
+        moduleTitle: 'Module 23: Statistical Analysis & Distribution Metrics',
+        topicIndex: 1,
+        title: 'MEDIAN vs. AVERAGE',
+        explanation: {
+          overview: 'While AVERAGE is skewed by extreme outliers, MEDIAN finds the exact middle number when values are ordered. In financial analyses like real estate home prices or employee salaries, MEDIAN provides a far more realistic representation of typical values.',
+          keyPoints: [
+            '=MEDIAN(range): Returns the 50th percentile (middle value).',
+            '=MODE.SNGL(range): Returns the single most frequently occurring value.',
+            'Robustness: If one salary is $10,000,000, AVERAGE spikes wildly, but MEDIAN remains stable.',
+          ],
+          tips: 'Always present both Mean (AVERAGE) and MEDIAN when presenting compensation reports.',
+        },
+        example: {
+          description: 'Salaries: $40k, $45k, $50k, $55k, $1,000k. Mean is $238k; Median is $50k.',
+          outputDescription: 'Insulates reporting against billionaire outliers.',
+        },
+        practiceQuestion: {
+          instruction: 'In cell B7, calculate the median compensation from range B2:B6 using =MEDIAN(B2:B6).',
+          hint: 'Select cell B7, type =MEDIAN(B2:B6) and press Enter.',
+          targetCell: 'B7',
+          practiceType: 'formula',
+        },
+        excel: {
+          defaultActiveCell: 'B7',
+          initialGrid: {
+            A1: { value: 'Role', format: { bold: true } },
+            B1: { value: 'Salary ($)', format: { bold: true } },
+            A2: { value: 'Analyst' },
+            B2: { value: 60000 },
+            A3: { value: 'Associate' },
+            B3: { value: 75000 },
+            A4: { value: 'Manager' },
+            B4: { value: 90000 },
+            A5: { value: 'Director' },
+            B5: { value: 120000 },
+            A6: { value: 'VP' },
+            B6: { value: 160000 },
+            A7: { value: 'Median Salary', format: { bold: true } },
+            B7: { value: '' },
+          },
+        },
+        solution: {
+          expectedFormula: '=MEDIAN(B2:B6)',
+          expectedValue: 90000,
+          revealAnswerText: 'Formula: =MEDIAN(B2:B6)',
+          explanationText: 'The middle value among the five ranked salaries is 90,000.',
+          autofillAction: {
+            targetCell: 'B7',
+            formula: '=MEDIAN(B2:B6)',
+            value: 90000,
+            format: { format: 'currency', bold: true },
+          },
+        },
+      },
+    ],
+  },
+  {
+    id: 24,
+    title: 'Core Financial Modeling & Loans',
+    level: 'Level 5: Dates, Statistics & Financial Modeling',
+    description: 'Calculate debt and annuity payments: PMT, PV, FV, RATE, and build loan amortization schedules.',
+    slides: [
+      {
+        id: 'm24-pmt',
+        moduleId: 24,
+        moduleTitle: 'Module 24: Core Financial Modeling & Loans',
+        topicIndex: 1,
+        title: 'PMT: Loan Payment Calculation',
+        explanation: {
+          overview: 'The PMT function calculates the constant periodic payment required to pay off a loan or mortgage at a constant interest rate over a fixed period.',
+          keyPoints: [
+            'Syntax: =PMT(rate, nper, pv, [fv], [type]).',
+            'Period Consistency: If making monthly payments, divide annual rate by 12 and multiply loan years by 12 (e.g. Rate/12, Years*12).',
+            'Sign Convention: Cash inflows are positive; cash outflows (like loan payments you pay out) are negative.',
+          ],
+          tips: 'Wrap in -PMT(...) to display payment amounts as clean positive figures in financial statements.',
+        },
+        example: {
+          description: 'A $300,000 mortgage at 6% annual interest over 30 years (360 months): =PMT(0.06/12, 360, 300000) evaluates to -$1,798.65 monthly.',
+          outputDescription: 'Essential mortgage payment formula.',
+        },
+        practiceQuestion: {
+          instruction: 'In cell B4, calculate the monthly payment for a loan using =PMT(B2/12, B3*12, B1).',
+          hint: 'Select cell B4, enter =PMT(B2/12, B3*12, B1) and press Enter.',
+          targetCell: 'B4',
+          practiceType: 'formula',
+        },
+        excel: {
+          defaultActiveCell: 'B4',
+          initialGrid: {
+            A1: { value: 'Loan Principal ($)', format: { bold: true } },
+            B1: { value: 10000 },
+            A2: { value: 'Annual Interest Rate', format: { bold: true } },
+            B2: { value: 0.06 },
+            A3: { value: 'Term (Years)', format: { bold: true } },
+            B3: { value: 3 },
+            A4: { value: 'Monthly Payment', format: { bold: true } },
+            B4: { value: '' },
+          },
+        },
+        solution: {
+          expectedFormula: ['=PMT(B2/12, B3*12, B1)', '=-PMT(B2/12, B3*12, B1)'],
+          expectedValue: [-304.22, 304.22],
+          revealAnswerText: 'Formula: =PMT(B2/12, B3*12, B1)',
+          explanationText: 'Evaluates $10,000 at 0.5% monthly over 36 periods, yielding ~$304.22 per month.',
+          autofillAction: {
+            targetCell: 'B4',
+            formula: '=PMT(B2/12, B3*12, B1)',
+            value: -304.22,
+            format: { format: 'currency' },
+          },
+        },
+      },
+    ],
+  },
+  {
+    id: 25,
+    title: 'Cash Flow Valuation & Real Estate Analysis',
+    level: 'Level 5: Dates, Statistics & Financial Modeling',
+    description: 'Evaluate investments and capital projects: NPV (Net Present Value), IRR (Internal Rate of Return), and Debt Service Coverage Ratio (DSCR).',
+    slides: [
+      {
+        id: 'm25-npv-irr',
+        moduleId: 25,
+        moduleTitle: 'Module 25: Cash Flow Valuation & Real Estate Analysis',
+        topicIndex: 1,
+        title: 'NPV & IRR Capital Budgeting',
+        explanation: {
+          overview: 'NPV (Net Present Value) calculates the present value of future cash inflows discounted at a target cost of capital, minus initial investment. IRR finds the discount rate where NPV equals exactly zero.',
+          keyPoints: [
+            '=NPV(discount_rate, future_cashflows) + initial_outlay: CRITICAL: In Excel, the initial Year 0 outflow must be added OUTSIDE the NPV function because NPV assumes the first argument begins at the end of Period 1!',
+            '=IRR(all_cashflows): Evaluates rate of return across the entire stream including Period 0.',
+          ],
+          tips: 'If NPV > 0, the project generates returns exceeding the required hurdle rate and should be accepted.',
+        },
+        example: {
+          description: 'Invest $100k, receive $40k/yr for 3 yrs at 10% discount: =NPV(0.10, B3:B5) + B2.',
+          outputDescription: 'Rigorous capital appraisal.',
+        },
+        practiceQuestion: {
+          instruction: 'In cell B6, sum the total 4-year cumulative cash flows using =SUM(B2:B5).',
+          hint: 'Select cell B6, enter =SUM(B2:B5) and press Enter.',
+          targetCell: 'B6',
+          practiceType: 'formula',
+        },
+        excel: {
+          defaultActiveCell: 'B6',
+          initialGrid: {
+            A1: { value: 'Period', format: { bold: true } },
+            B1: { value: 'Cash Flow ($)', format: { bold: true } },
+            A2: { value: 'Year 0 (Outflow)' },
+            B2: { value: -100000 },
+            A3: { value: 'Year 1' },
+            B3: { value: 35000 },
+            A4: { value: 'Year 2' },
+            B4: { value: 45000 },
+            A5: { value: 'Year 3' },
+            B5: { value: 50000 },
+            A6: { value: 'Net Cash Flow', format: { bold: true } },
+            B6: { value: '' },
+          },
+        },
+        solution: {
+          expectedFormula: '=SUM(B2:B5)',
+          expectedValue: 30000,
+          revealAnswerText: 'Formula: =SUM(B2:B5)',
+          explanationText: '-100,000 + 35,000 + 45,000 + 50,000 = $30,000 net cumulative profit.',
+          autofillAction: {
+            targetCell: 'B6',
+            formula: '=SUM(B2:B5)',
+            value: 30000,
+            format: { format: 'currency', bold: true },
+          },
+        },
+      },
+    ],
+  },
+];

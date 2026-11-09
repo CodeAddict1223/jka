@@ -1,0 +1,6 @@
+{
+  "name": "ExcelMaster: Interactive Excel Learning & Practice",
+  "description": "Comprehensive 35-module interactive Excel tutorial and hands-on practice sandbox with live formula evaluation, keyboard shortcut detection, and step-by-step guidance.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

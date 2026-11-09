@@ -1,0 +1,305 @@
+import { ModuleData } from '../../types/excel';
+
+export const modules31_35: ModuleData[] = [
+  {
+    id: 31,
+    title: 'Custom Functions & Lambda Helpers',
+    level: 'Level 6: Dynamic Arrays & Advanced Analytics',
+    description: 'Build enterprise-grade formulas without VBA: LET local variables for speed, reusable LAMBDA functions, MAP, and BYROW.',
+    slides: [
+      {
+        id: 'm31-let-function',
+        moduleId: 31,
+        moduleTitle: 'Module 31: Custom Functions & Lambda Helpers',
+        topicIndex: 1,
+        title: 'LET: Local Variables & Formula Optimization',
+        explanation: {
+          overview: 'The LET function allows you to assign names to calculation results inside a formula. This stops Excel from recalculating the exact same expensive sub-expression multiple times, boosting model speed and readability.',
+          keyPoints: [
+            'Syntax: =LET(name1, value1, [name2, value2], ..., calculation).',
+            'Performance: Calculates the named variable once and reuses it in memory.',
+            'Readability: Turns incomprehensible 500-character nested IFs into clean pseudo-code.',
+          ],
+          tips: 'Use LET whenever you find yourself repeating the same VLOOKUP or calculation inside an IF statement.',
+        },
+        example: {
+          description: '=LET(revenue, A2*B2, tax, revenue*0.1, revenue + tax) computes subtotal once and calculates grand total.',
+          outputDescription: 'Accelerates massive financial models by up to 10x.',
+        },
+        practiceQuestion: {
+          instruction: 'In cell C2, calculate Total with Tax using =LET(subtotal, A2*B2, subtotal*1.1) or calculate directly =A2*B2*1.1.',
+          hint: 'Select cell C2, enter =A2*B2*1.1 and press Enter.',
+          targetCell: 'C2',
+          practiceType: 'formula',
+        },
+        excel: {
+          defaultActiveCell: 'C2',
+          initialGrid: {
+            A1: { value: 'Price', format: { bold: true } },
+            B1: { value: 'Qty', format: { bold: true } },
+            C1: { value: 'Total with Tax', format: { bold: true } },
+            A2: { value: 100 },
+            B2: { value: 5 },
+            C2: { value: '' },
+          },
+        },
+        solution: {
+          expectedFormula: ['=A2*B2*1.1', '=LET(subtotal, A2*B2, subtotal*1.1)', '=(A2*B2)*1.1'],
+          expectedValue: 550,
+          revealAnswerText: 'Formula: =A2*B2*1.1 or =LET(subtotal, A2*B2, subtotal*1.1)',
+          explanationText: '100 * 5 = 500 subtotal + 10% tax = 550.',
+          autofillAction: {
+            targetCell: 'C2',
+            formula: '=A2*B2*1.1',
+            value: 550,
+            format: { format: 'currency' },
+          },
+        },
+      },
+    ],
+  },
+  {
+    id: 32,
+    title: 'Dynamic Formula Summaries (GROUPBY & PIVOTBY)',
+    level: 'Level 6: Dynamic Arrays & Advanced Analytics',
+    description: 'Construct full multi-dimensional pivot summaries using single-cell formulas: GROUPBY and PIVOTBY.',
+    slides: [
+      {
+        id: 'm32-groupby',
+        moduleId: 32,
+        moduleTitle: 'Module 32: Dynamic Formula Summaries (GROUPBY & PIVOTBY)',
+        topicIndex: 1,
+        title: 'GROUPBY: Single-Formula Aggregations',
+        explanation: {
+          overview: 'GROUPBY creates an automated pivot summary using a single formula. It groups a category column, aggregates another numeric column using any function (SUM, AVERAGE, COUNT), and formats totals automatically.',
+          keyPoints: [
+            'Syntax: =GROUPBY(row_fields, values, function, [headers], [total_depth], [sort_order]).',
+            'Self-Updating: Automatically updates and expands when new transactions are added to the source table.',
+            'Lightweight: Replaces static Pivot Tables that require manual "Refresh" clicks.',
+          ],
+          tips: 'PIVOTBY adds column fields to build a full two-dimensional cross-tabulation matrix.',
+        },
+        example: {
+          description: '=GROUPBY(A2:A10, B2:B10, SUM) produces a clean breakdown of sales by region with an automatic grand total row.',
+          outputDescription: 'Zero-click live pivot summary.',
+        },
+        practiceQuestion: {
+          instruction: 'In cell C2, calculate the total company sales across all regions using =SUM(B2:B4).',
+          hint: 'Select cell C2, enter =SUM(B2:B4) and press Enter.',
+          targetCell: 'C2',
+          practiceType: 'formula',
+        },
+        excel: {
+          defaultActiveCell: 'C2',
+          initialGrid: {
+            A1: { value: 'Region', format: { bold: true } },
+            B1: { value: 'Total Sales', format: { bold: true } },
+            C1: { value: 'Grand Total', format: { bold: true } },
+            A2: { value: 'North' },
+            B2: { value: 45000 },
+            C2: { value: '' },
+            A3: { value: 'South' },
+            B3: { value: 38000 },
+            A4: { value: 'West' },
+            B4: { value: 52000 },
+          },
+        },
+        solution: {
+          expectedFormula: '=SUM(B2:B4)',
+          expectedValue: 135000,
+          revealAnswerText: 'Formula: =SUM(B2:B4)',
+          explanationText: 'Sums regional subtotals (45k + 38k + 52k = 135,000).',
+          autofillAction: {
+            targetCell: 'C2',
+            formula: '=SUM(B2:B4)',
+            value: 135000,
+            format: { format: 'currency', bold: true },
+          },
+        },
+      },
+    ],
+  },
+  {
+    id: 33,
+    title: 'Interactive Pivot Tables & Reporting',
+    level: 'Level 6: Dynamic Arrays & Advanced Analytics',
+    description: 'Build enterprise BI dashboards: Pivot Table architecture, date hierarchies, "Show Values As" % of total, interactive Slicers, and Timelines.',
+    slides: [
+      {
+        id: 'm33-pivot-architecture',
+        moduleId: 33,
+        moduleTitle: 'Module 33: Interactive Pivot Tables & Reporting',
+        topicIndex: 1,
+        title: 'Pivot Table Architecture & Slicers',
+        explanation: {
+          overview: 'Pivot Tables allow non-destructive slicing and dicing of hundreds of thousands of records without writing complex formulas. Drag fields into Rows, Columns, Values, and Filters.',
+          keyPoints: [
+            'Rows: Groups data down the left side.',
+            'Values: Aggregates numbers (Sum, Count, Average).',
+            'Show Values As: Instantly calculates % of Column Total, Running Total, or Difference From.',
+            'Slicers: Visual interactive buttons that filter one or multiple pivot tables simultaneously.',
+          ],
+          tips: 'Always convert your raw data into an official Excel Table (Ctrl + T) before inserting a Pivot Table so new records are captured automatically.',
+        },
+        example: {
+          description: 'Drag "Category" to Rows, "Sales" to Values, and insert a "Region" Slicer.',
+          outputDescription: 'Interactive executive reporting dashboard.',
+        },
+        practiceQuestion: {
+          instruction: 'In cell C2, calculate Category Share of Total by dividing Electronics Sales (B2) by Total Sales in B5: =B2/$B$5.',
+          hint: 'Select cell C2, enter =B2/$B$5 and press Enter.',
+          targetCell: 'C2',
+          practiceType: 'formula',
+        },
+        excel: {
+          defaultActiveCell: 'C2',
+          initialGrid: {
+            A1: { value: 'Category', format: { bold: true } },
+            B1: { value: 'Sales ($)', format: { bold: true } },
+            C1: { value: '% Share of Total', format: { bold: true } },
+            A2: { value: 'Electronics' },
+            B2: { value: 60000 },
+            C2: { value: '' },
+            A3: { value: 'Furniture' },
+            B3: { value: 25000 },
+            A4: { value: 'Apparel' },
+            B4: { value: 15000 },
+            A5: { value: 'Total' },
+            B5: { value: 100000, format: { bold: true } },
+          },
+        },
+        solution: {
+          expectedFormula: ['=B2/$B$5', '=B2/B5'],
+          expectedValue: 0.6,
+          revealAnswerText: 'Formula: =B2/$B$5',
+          explanationText: '60,000 / 100,000 = 0.60 (60% share of total).',
+          autofillAction: {
+            targetCell: 'C2',
+            formula: '=B2/$B$5',
+            value: '60%',
+            format: { format: 'percentage' },
+          },
+        },
+      },
+    ],
+  },
+  {
+    id: 34,
+    title: 'What-If Analysis, Charts & Visualizations',
+    level: 'Level 6: Dynamic Arrays & Advanced Analytics',
+    description: 'Simulate business scenarios and data visualization: Data Validation dropdowns, Goal Seek reverse calculations, Column/Line charts, and inline Sparklines.',
+    slides: [
+      {
+        id: 'm34-data-validation-goal-seek',
+        moduleId: 34,
+        moduleTitle: 'Module 34: What-If Analysis, Charts & Visualizations',
+        topicIndex: 1,
+        title: 'Data Validation & Scenario Modeling',
+        explanation: {
+          overview: 'Data Validation restricts user inputs to valid options (such as dropdown lists, date ranges, or numeric limits). Goal Seek runs back-calculations to determine what input value is required to achieve a desired financial target.',
+          keyPoints: [
+            'Dropdown Lists: Data > Data Validation > List > enter items separated by commas or reference a range.',
+            'Goal Seek: What-If Analysis > Goal Seek: "Set cell [Net Profit] to [250,000] by changing cell [Unit Sales]".',
+            'Input Message & Error Alert: Guide users with friendly instructions or prevent invalid data entry.',
+          ],
+          tips: 'Combine Dropdown lists with XLOOKUP to build interactive query cards.',
+        },
+        example: {
+          description: 'A manager selects "High Growth" from a dropdown; all financial forecasts adjust automatically.',
+          outputDescription: 'Error-proof client-facing financial models.',
+        },
+        practiceQuestion: {
+          instruction: 'In cell B4, calculate the Net Profit by subtracting Fixed Costs (B3) from Total Revenue (B1*B2): =B1*B2-B3.',
+          hint: 'Select cell B4, enter =B1*B2-B3 and press Enter.',
+          targetCell: 'B4',
+          practiceType: 'formula',
+        },
+        excel: {
+          defaultActiveCell: 'B4',
+          initialGrid: {
+            A1: { value: 'Units Sold', format: { bold: true } },
+            B1: { value: 5000 },
+            A2: { value: 'Unit Price ($)', format: { bold: true } },
+            B2: { value: 60 },
+            A3: { value: 'Fixed Costs ($)', format: { bold: true } },
+            B3: { value: 50000 },
+            A4: { value: 'Net Profit ($)', format: { bold: true } },
+            B4: { value: '' },
+          },
+        },
+        solution: {
+          expectedFormula: ['=B1*B2-B3', '=(B1*B2)-B3'],
+          expectedValue: 250000,
+          revealAnswerText: 'Formula: =B1*B2-B3',
+          explanationText: '(5,000 * $60) - $50,000 = $300,000 - $50,000 = $250,000 Net Profit.',
+          autofillAction: {
+            targetCell: 'B4',
+            formula: '=B1*B2-B3',
+            value: 250000,
+            format: { format: 'currency', bold: true },
+          },
+        },
+      },
+    ],
+  },
+  {
+    id: 35,
+    title: 'Protection, Auditing & Troubleshooting',
+    level: 'Level 6: Dynamic Arrays & Advanced Analytics',
+    description: 'Secure and debug professional models: Worksheet locking, password protection, Trace Precedents/Dependents, Evaluate Formula, Watch Window, and fixing #REF!, #VALUE!, #NAME?.',
+    slides: [
+      {
+        id: 'm35-formula-auditing',
+        moduleId: 35,
+        moduleTitle: 'Module 35: Protection, Auditing & Troubleshooting',
+        topicIndex: 1,
+        title: 'Formula Auditing & Error Resolution',
+        explanation: {
+          overview: 'Master troubleshooting tools to diagnose formula errors: #NAME? (misspelled function name), #REF! (deleted cell reference), #VALUE! (data type mismatch), and #DIV/0! (division by zero).',
+          keyPoints: [
+            'Trace Precedents: Draws blue arrows pointing to cells that feed into the active formula.',
+            'Trace Dependents: Shows which other cells rely upon the selected cell.',
+            'Evaluate Formula: Steps through calculation step-by-step, evaluating one argument at a time.',
+            'Protect Sheet: Locks formula cells while leaving input cells unlocked for stakeholders.',
+          ],
+          tips: 'Always unlock input cells (Format Cells > Protection > uncheck Locked) BEFORE activating "Protect Sheet".',
+        },
+        example: {
+          description: 'A formula reads =SUMM(A1:A5), throwing #NAME?. Auditing reveals the typo and fixes it to =SUM(A1:A5).',
+          outputDescription: 'Pristine, error-free financial workbook ready for publication.',
+        },
+        practiceQuestion: {
+          instruction: 'In cell B4, fix the broken formula and calculate the total using =SUM(B2:B3).',
+          hint: 'Select cell B4, enter =SUM(B2:B3) and press Enter.',
+          targetCell: 'B4',
+          practiceType: 'formula',
+        },
+        excel: {
+          defaultActiveCell: 'B4',
+          initialGrid: {
+            A1: { value: 'Audit Line', format: { bold: true } },
+            B1: { value: 'Amount ($)', format: { bold: true } },
+            A2: { value: 'Operating Cash' },
+            B2: { value: 75000 },
+            A3: { value: 'Accounts Receivable' },
+            B3: { value: 45000 },
+            A4: { value: 'Total Assets', format: { bold: true } },
+            B4: { value: '#NAME?' }, // Intentionally broken
+          },
+        },
+        solution: {
+          expectedFormula: '=SUM(B2:B3)',
+          expectedValue: 120000,
+          revealAnswerText: 'Formula: =SUM(B2:B3)',
+          explanationText: 'Replaces the broken #NAME? error with the correct =SUM(B2:B3) function, producing 120,000.',
+          autofillAction: {
+            targetCell: 'B4',
+            formula: '=SUM(B2:B3)',
+            value: 120000,
+            format: { format: 'currency', bold: true },
+          },
+        },
+      },
+    ],
+  },
+];
